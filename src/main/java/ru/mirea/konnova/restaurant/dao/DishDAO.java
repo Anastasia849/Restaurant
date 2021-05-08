@@ -6,4 +6,5 @@ import ru.mirea.konnova.restaurant.model.Dish;
 
 @Repository
 public interface DishDAO extends JpaRepository<Dish, Integer> {
+    Dish findByName(String name);
 }
