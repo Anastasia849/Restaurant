@@ -1,7 +1,6 @@
 package ru.mirea.konnova.restaurant.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +21,5 @@ public class ElementOfOrder {
     private float price;
 
     @ManyToOne
-    @JsonIgnore
-    private Order bank;
+    private Order order;
 }
