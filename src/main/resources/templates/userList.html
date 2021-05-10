@@ -10,7 +10,6 @@
     <tr>
         <th> ID </th>
         <th> Login </th>
-        <th> E-mail </th>
         <th> First name </th>
         <th> Surname </th>
         <th> Phone </th>
@@ -21,7 +20,6 @@
     <tr th:each="user : ${users}">
         <td><span th:text="${user.id}"> ID </span></td>
         <td><span th:text="${user.name}"> Login </span></td>
-        <td><span th:text="${user.email}"> E-mail </span></td>
         <td><span th:text="${user.realName}"> First name </span></td>
         <td><span th:text="${user.surname}"> Surname </span></td>
         <td><span th:text="${user.phone}"> Phone </span></td>

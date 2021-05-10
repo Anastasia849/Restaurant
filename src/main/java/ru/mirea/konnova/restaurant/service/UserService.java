@@ -32,7 +32,6 @@ public class UserService {
         if (errors.hasErrors()) {
             model.addAttribute("currentName",user.getName());
             model.addAttribute("currentPassword",user.getPassword());
-            model.addAttribute("currentEmail",user.getEmail());
 
             List<FieldError> list = errors.getFieldErrors();
             for (FieldError f : list) {

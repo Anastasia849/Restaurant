@@ -26,10 +26,6 @@ public class User implements UserDetails {
     @Size(min = 5, message = "At least five characters")
     private String name;
 
-    @Email(message = "incorrect email address")
-    @NotBlank(message = "not empty")
-    @NotNull(message = "not null")
-    private String email;
 
     @NotBlank(message = "not empty")
     @NotNull(message = "not null")
