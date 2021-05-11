@@ -7,41 +7,27 @@
 <body>
 
 <form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
+    <input type="submit" value="Выйти"/>
 </form>
 
-<div  th:each="prod: ${prods}">
-    <form th:action="@{/checkClickedButton}" method="get">
-        <input type="button" th:value="${prod}">
-    </form>
-</div>
+<!--<div  th:each="prod: ${prods}">-->
+<!--    <form th:action="@{/checkClickedButton}" method="get">-->
+<!--        <input type="button" th:value="${prod}">-->
+<!--    </form>-->
+<!--</div>-->
 
 <h2>Добавить новую позицию товара</h2>
 <div>
-    <form enctype="multipart/form-data" th:action="@{/admin/addNewPosition}" method="post">
-        <div>
-            <label>Тип товара</label>
-            <select name="type">
-                <option th:each="prodd: ${prodss}" th:value = "${prodd}" th:text="${prodd}"></option>
-            </select>
-        </div>
+    <form enctype="multipart/form-data" th:action="@{/admin/addDish}" method="post">
         <div>
             <label>Название товара</label>
-            <input type="text" name="title" th:value="${currentTitle}">
-            <span style="color: red" th:text="${title}"></span>
+            <input type="text" name="title" th:value="${currentName}">
+            <span style="color: red" th:text="${name}"></span>
         </div>
         <div>
             <label>Описание товара</label>
             <input type="text" name="description" th:value="${currentDescription}">
             <span style="color: red" th:text="${description}"></span>
-        </div>
-        <div>
-            <label>Доступность</label>
-            <select name="availability">
-                <option>Есть на складе</option>
-                <option>Нет в наличии</option>
-            </select>
-            <span style="color: red" th:text="${availabilityErr}"></span>
         </div>
         <div>
             <label>Цена</label>
