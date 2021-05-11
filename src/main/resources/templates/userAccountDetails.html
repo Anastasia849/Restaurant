@@ -55,21 +55,6 @@
     <input type="submit" value="submit">
 </form>
 
-<form th:action="@{/user/updatePassword}" method="post">
-    <h2>Блок смены пароля</h2>
-    <div>
-        Введите старый пароль:
-        <input type="text" name="oldPassword" required>
-        <span style="color: red" th:text="${oldPasswordErr}"></span>
-    </div>
-    <div>
-        Введите новый пароль: <input type="text" name="passwordFirstTry" required>
-    </div>
-    <div>
-        Подтвердите ввод: <input type="text" name="passwordSecondTry" required>
-        <span style="color: red" th:text="${newPasswordErr}"></span>
-    </div>
-    <input type="submit" value="Изменить пароль">
-</form>
+
 </body>
 </html>
