@@ -26,13 +26,14 @@ public class AdminService {
     }
 
 
-    public String addNewPos(Dish dish, Errors errors, RedirectAttributes redirectAttributes){
+    public String addDish(Dish dish, Errors errors, RedirectAttributes redirectAttributes){
         boolean flagOfErrors = false;
+
 
         if(errors.hasErrors()){
             flagOfErrors = true;
 
-            redirectAttributes.addFlashAttribute("currentTitle", dish.getName());
+            redirectAttributes.addFlashAttribute("currentName", dish.getName());
             redirectAttributes.addFlashAttribute("currentDescription", dish.getDescription());
             redirectAttributes.addFlashAttribute("currentPrice", dish.getPrice());
 
@@ -44,7 +45,7 @@ public class AdminService {
 
         if(dishDAO.findByName(dish.getName()) != null) {
             flagOfErrors = true;
-            redirectAttributes.addFlashAttribute("exists", "Товар с таким названием уже существует");
+            redirectAttributes.addFlashAttribute("exists", "Блюдо с таким названием уже существует");
         }
 
 
@@ -53,6 +54,10 @@ public class AdminService {
             dishDAO.save(dish);
 
         return "redirect:/admin";
+    }
+
+    public void deleteDish(int id){
+        dishDAO.deleteById(id);
     }
 
     public String userList(Model model){

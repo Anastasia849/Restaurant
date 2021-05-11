@@ -1,53 +1,50 @@
 package ru.mirea.konnova.restaurant.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 import ru.mirea.konnova.restaurant.model.Dish;
 import ru.mirea.konnova.restaurant.service.AdminService;
+import ru.mirea.konnova.restaurant.service.OrderService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Map;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private final AdminService service;
+    private final AdminService adminService;
+    private final OrderService orderService;
 
-    public AdminController(AdminService service) {
-        this.service = service;
+    @Autowired
+    public AdminController(AdminService service, OrderService orderService) {
+        this.adminService = service;
+        this.orderService = orderService;
     }
 
-//    @GetMapping("")
-//    public String adminPage(Model model, HttpServletRequest request) {
-//        ProductType[] productType = ProductType.values();
-//        model.addAttribute("prods", productType);
-//        model.addAttribute("prodss", productType);
-//
-//        Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
-//        if(map != null) {
-//            for (Map.Entry<String, ?> entry : map.entrySet()) {
-//                model.addAttribute(entry.getKey(), entry.getValue());
-//            }
-//        }
-//
-//        return "adminPage";
-//    }
 
-    @PostMapping("/addNewPosition")
-    public String addNewPosition(@ModelAttribute @Valid Dish dish, Errors errors, RedirectAttributes redirectAttributes){
-        return  service.addNewPos(dish, errors, redirectAttributes);
+    @GetMapping("")
+    String getAdminPage(Model model){
+        List<Dish> dishes=orderService.getDishes();
+        model.addAttribute("dishes", dishes);
+        return "admin";
+    }
+    @DeleteMapping("/deleteDish/{id}")
+    public String deleteDish(@PathVariable("id") int id){
+        adminService.deleteDish(id);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/addDish")
+    public String addDish(@ModelAttribute @Valid Dish dish, Errors errors, RedirectAttributes redirectAttributes){
+        return  adminService.addDish(dish, errors, redirectAttributes);
     }
 
     @GetMapping("/userList")
     public String getUserList(Model model){
-        return service.userList(model);
+        return adminService.userList(model);
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/home")
 public class UserAccountController {
     private final UserService service;
 
@@ -22,10 +22,6 @@ public class UserAccountController {
         this.service = service;
     }
 
-    @GetMapping("")
-    public String getUserFirstPage(){
-        return "main";
-    }
 
     @GetMapping("/userAccount")
     public String getUserAccDet(Model model, HttpServletRequest request){
@@ -43,7 +39,7 @@ public class UserAccountController {
         model.addAttribute("name", currentUser.getName() == null ? "" : currentUser.getName());
         model.addAttribute("address", currentUser.getAddress() == null ? "" : currentUser.getAddress());
         model.addAttribute("realName", currentUser.getRealName() == null ? "" : currentUser.getRealName());
-        model.addAttribute("surname", currentUser.getSurname() == null ? "" : currentUser.getSurname());
+
 
         return "userAccountDetails";
     }
@@ -52,7 +48,6 @@ public class UserAccountController {
     public String updateUser(@ModelAttribute("phone") String phone,
                              @ModelAttribute("address") String address,
                              @ModelAttribute("realName") String realName,
-                             @ModelAttribute("surname") String surname,
                              RedirectAttributes redirectAttributes) {
         boolean falseFlag = false;
         User user = service.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -76,58 +71,18 @@ public class UserAccountController {
             falseFlag = true;
         }
 
-        if(surname.isEmpty()){
-            redirectAttributes.addFlashAttribute("currentSurname", surname);
-            redirectAttributes.addFlashAttribute("surnameErr", "Введите вашу фамилию");
-            falseFlag = true;
-        }
 
         if (falseFlag)
-            return "redirect:/user/userAccount";
+            return "redirect:/home/userAccount";
 
         user.setAddress(address);
         user.setPhone(phone);
         user.setRealName(realName);
-        user.setSurname(surname);
 
         service.saveOrUpdate(user);
 
-        return "redirect:/user/userAccount";
+        return "redirect:/home/userAccount";
     }
 
-    @PostMapping("/updatePassword")
-    public String updatePassword(@ModelAttribute("oldPassword") String oldPassword,
-                                 @ModelAttribute("passwordFirstTry") String passwordFirstTry,
-                                 @ModelAttribute("passwordSecondTry") String passwordSecondTry,
-                                 RedirectAttributes redirectAttributes){
-        User user = service.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        boolean errFlag = false;
-
-        if(!service.matches(oldPassword, user.getPassword())){
-            redirectAttributes.addFlashAttribute("oldPasswordErr", "Введите старый пароль");
-            return "redirect:/user/userAccount";
-        }
-
-        if(passwordFirstTry.length() < 8 || passwordSecondTry.length() < 8){
-            redirectAttributes.addFlashAttribute("newPasswordErr", "Длина нового пароля должна быть не менее 8 знаков");
-            errFlag = true;
-        }
-        if (!service.equalsPassword(passwordFirstTry, passwordSecondTry)){
-            redirectAttributes.addFlashAttribute("newPasswordErr", "Пожалуйста, проверьте введенный пароль");
-            errFlag = true;
-        }
-        if(service.equalsPassword(oldPassword, passwordFirstTry)){
-            redirectAttributes.addFlashAttribute("oldPasswordErr", "Новый пароль должен отличаться от старого");
-            errFlag = true;
-        }
-
-        if (errFlag)
-            return "redirect:/user/userAccount";
-
-
-        user.setPassword(service.encode(passwordFirstTry));
-        service.saveOrUpdate(user);
-        return "redirect:/login";
-    }
 }

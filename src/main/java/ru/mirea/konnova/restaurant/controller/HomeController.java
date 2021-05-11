@@ -36,7 +36,7 @@ public class HomeController {
     @GetMapping("")
     public String afterLogin(@AuthenticationPrincipal User user){
         if(user.getRoles().contains(Role.USER)){
-            return "redirect:/user";
+            return "redirect:/home";
         } else {
             return "redirect:/admin";
         }

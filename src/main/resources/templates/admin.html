@@ -15,13 +15,21 @@
 <!--        <input type="button" th:value="${prod}">-->
 <!--    </form>-->
 <!--</div>-->
-
-<h2>Добавить новую позицию товара</h2>
+<h4>Меню</h4>
+<div th:each="d: ${dishes}">
+    <span th:text="${d.getName()}"></span>
+    <span th:text="${d.getDescription()}"></span>
+    <span th:text="${d.getPrice()}"></span>
+    <form th:method="delete" th:action="@{/admin/deleteDish/{id} (id = ${d.getId()})}" style="display: inline" >
+        <button type="submit">Удалить</button>
+    </form>
+</div>
+<h4>Добавить новую позицию товара</h4>
 <div>
     <form enctype="multipart/form-data" th:action="@{/admin/addDish}" method="post">
         <div>
             <label>Название товара</label>
-            <input type="text" name="title" th:value="${currentName}">
+            <input type="text" name="name" th:value="${currentName}">
             <span style="color: red" th:text="${name}"></span>
         </div>
         <div>
@@ -41,7 +49,7 @@
 
 <div>
     <a th:href="@{/admin/userList}">
-        <h2>Посмотреть список юзеров</h2>
+        <h4>Посмотреть список юзеров</h4>
     </a>
 </div>
 

@@ -3,8 +3,10 @@ package ru.mirea.konnova.restaurant.model;
 
 import lombok.*;
 
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.mirea.konnova.restaurant.dto.OrderDTO;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -36,13 +38,13 @@ public class User implements UserDetails {
     @Column(name = "real_name")
     private String realName;
 
-    private String surname;
 
     private String phone;
 
     private String address;
 
     private boolean active;
+
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))

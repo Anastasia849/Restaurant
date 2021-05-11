@@ -8,4 +8,5 @@ import ru.mirea.konnova.restaurant.model.Order;
 
 @Repository
 public interface OrderDAO extends JpaRepository<Order, Integer> {
+
 }

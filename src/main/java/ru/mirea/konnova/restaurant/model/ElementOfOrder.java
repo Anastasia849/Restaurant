@@ -2,6 +2,7 @@ package ru.mirea.konnova.restaurant.model;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "order_elements")
+@NoArgsConstructor
 public class ElementOfOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,4 +24,9 @@ public class ElementOfOrder {
 
     @ManyToOne
     private Order order;
+
+    public ElementOfOrder(Dish dish){
+        name=dish.getName();
+        price=dish.getPrice();
+    }
 }
