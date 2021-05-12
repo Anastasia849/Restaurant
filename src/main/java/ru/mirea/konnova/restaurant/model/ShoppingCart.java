@@ -16,10 +16,9 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    @Column(name = "total")
-    private float total;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @JoinColumn(name = "shopping_cart_id")
     private Set<ElementOfOrder> elementOfOrderSet;
 
     @ManyToOne
@@ -29,4 +28,6 @@ public class ShoppingCart {
     @CollectionTable(name = "shopping_cart_status", joinColumns = @JoinColumn(name = "shopping_cart_id"))
     @Enumerated(EnumType.STRING)
     private Set<Status> statuses;
+
+
 }

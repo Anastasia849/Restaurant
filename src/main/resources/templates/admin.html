@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Admin page</title>
 </head>
@@ -44,10 +43,11 @@
 </div>
 
 <div>
-    <a th:href="@{/admin/userList}">
-        <h4>Посмотреть список юзеров</h4>
-    </a>
+    <a th:href="@{/admin/userList}">Посмотреть список юзеров</a>
 </div>
 
+<div>
+    <a th:href="@{/admin/orderList}">Посмотреть список заказов</a>
+</div>
 </body>
 </html>

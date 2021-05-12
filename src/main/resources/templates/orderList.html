@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OrderList</title>
+</head>
+<body>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Выйти"/>
+</form>
+<a th:href="@{/admin}">Главная страница</a>
+<h4>Заказы в обработке</h4>
+<div th:each="o: ${ordersProcessing}" >
+    <p>Номер заказа : <span th:text="${o.getId()}"></span></p>
+    <p>Имя : <span th:text="${o.getUser().getRealName()}"></span></p>
+    <p>Номер : <span th:text="${o.getUser().getPhone()}"></span></p>
+    <p>Адрес : <span th:text="${o.getUser().getAddress()}"></span></p>
+    <ul>
+        <li th:each="el :${o.getElementOfOrderSet()}">
+            <span th:text="${el.getName()}"></span>
+            <span th:text="${el.getDescription()}"></span>
+            <span th:text="${el.getPrice()}"></span>
+        </li>
+    </ul>
+    <form th:method="post" th:action="@{/admin/orderList/process/{id} (id = ${o.getId()})}"  >
+    <button type="submit">Обработано</button>
+    </form>
+    <p>__________________________________________________</p>
+</div>
+<h4>Обработанные заказы</h4>
+<div th:each="o: ${ordersProcessed}" >
+    <p>Номер заказа : <span th:text="${o.getId()}"></span></p>
+    <p>Имя : <span th:text="${o.getUser().getRealName()}"></span></p>
+    <p>Номер : <span th:text="${o.getUser().getPhone()}"></span></p>
+    <p>Адрес : <span th:text="${o.getUser().getAddress()}"></span></p>
+    <ul>
+        <li th:each="el :${o.getElementOfOrderSet()}">
+            <span th:text="${el.getName()}"></span>
+            <span th:text="${el.getDescription()}"></span>
+            <span th:text="${el.getPrice()}"></span>
+        </li>
+    </ul>
+    <p>__________________________________________________</p>
+</div>
+</body>
+</html>

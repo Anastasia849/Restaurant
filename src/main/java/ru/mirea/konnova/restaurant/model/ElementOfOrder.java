@@ -19,14 +19,19 @@ public class ElementOfOrder {
     private int id;
     @Column(name = "name")
     private String name;
+    @Column(name = "description")
+    private String description;
     @Column(name = "price")
     private float price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     ShoppingCart shoppingCart;
 
     public ElementOfOrder(Dish dish){
         this.name=dish.getName();
         this.price=dish.getPrice();
+        this.description=dish.getDescription();
     }
+
+
 }

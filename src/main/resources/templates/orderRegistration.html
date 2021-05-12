@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/home/userAccount}">Личный кабинет</a>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Выйти"/>
+</form>
+<a th:href="@{/home}">Главная страница</a>
+
+<h4>Корзина</h4>
+<div th:each="e: ${elements}">
+    <span th:text="${e.getName()}"></span>
+    <span th:text="${e.getDescription()}"></span>
+    <span th:text="${e.getPrice()}"></span>
+</div>
+
+<span th:text="${total}">Сумма</span>
+
+<p style="color: #ff0000" th:text="${errorAddress}"></p>
+<h4>Личный кабинет</h4>
+<label th:if="${realName} != ''">
+    <p th:text="${realName}"></p>
+</label>
+<label th:if="${phone} != ''">
+    <p th:text="${phone}"></p>
+</label>
+<label th:if="${address} != ''">
+    <p th:text="${address}"></p>
+</label>
+
+<form th:method="post" th:action="@{/home/orderRegistration/confirm}" style="display: inline" >
+    <button type="submit">Подтвердить</button>
+</form>
+
+</body>
+</html>

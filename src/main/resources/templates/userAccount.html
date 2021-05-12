@@ -2,29 +2,31 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Account</title>
 </head>
 <body>
-<label>
-    Login
-    <p th:text="${name}"></p>
-</label>
-
-<label  th:if="${realName} != ''">
-    Имя
-    <p th:text="${realName}"></p>
-</label>
+<a th:href="@{/home}">Главная страница</a>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Выйти"/>
+</form>
 
 
-
-<label th:if="${phone} != ''">
-    PhoneNumber
-    <p th:text="${phone}"></p>
-</label>
-<label th:if="${address} != ''">
-    Address
-    <p th:text="${address}"></p>
-</label>
+<p>
+    Логин :
+    <span th:text="${name}"></span>
+</p>
+<p  th:if="${realName} != ''">
+    Имя :
+    <span th:text="${realName}"></span>
+</p>
+<p th:if="${phone} != ''">
+    Номер телефона :
+    <span th:text="${phone}"></span>
+</p>
+<p th:if="${address} != ''">
+    Адрес :
+    <span th:text="${address}"></span>
+</p>
 
 <form th:action="@{/home/updateUser}" method="post">
     <div>
@@ -34,7 +36,7 @@
     </div>
 
     <div>
-        номер телефона
+        Номер телефона
         <input type="tel" name="phone" th:value="${currentPhone}">
         <span style="color: red" th:text="${phoneErr}"></span>
     </div>

@@ -6,9 +6,12 @@ import ru.mirea.konnova.restaurant.model.ShoppingCart;
 import ru.mirea.konnova.restaurant.model.Status;
 import ru.mirea.konnova.restaurant.model.User;
 
+import java.util.List;
+
 
 @Repository
 public interface ShoppingCartDAO extends JpaRepository<ShoppingCart, Integer> {
-    ShoppingCart findByUser(User user);
     ShoppingCart findByStatusesAndAndUser(Status status,User user);
+    List <ShoppingCart> findAllByStatuses(Status status);
+    ShoppingCart findById(int id);
 }

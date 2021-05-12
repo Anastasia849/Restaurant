@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation</title>
+</head>
+<body>
+<a th:href="@{/home/userAccount}">Личный кабинет</a>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Выйти"/>
+</form>
+<a th:href="@{/home}">Главная страница</a>
+
+<p style="color: green">
+    Ваш заказ обрабатывается
+</p>
+</body>
+</html>

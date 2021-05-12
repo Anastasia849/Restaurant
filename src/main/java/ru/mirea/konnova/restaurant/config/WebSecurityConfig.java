@@ -1,6 +1,6 @@
 package ru.mirea.konnova.restaurant.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.mirea.konnova.restaurant.model.Role;
 import ru.mirea.konnova.restaurant.service.UserDetailsService;
 
-import javax.sql.DataSource;
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,7 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/registrationAcc").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/main").permitAll()
                 .antMatchers("/home/*").hasAuthority(Role.USER.getAuthority())
                 .antMatchers("/admin/*").hasAuthority(Role.ADMIN.getAuthority())
                 .anyRequest().authenticated()

@@ -41,7 +41,7 @@ public class UserAccountController {
         model.addAttribute("realName", currentUser.getRealName() == null ? "" : currentUser.getRealName());
 
 
-        return "userAccountDetails";
+        return "userAccount";
     }
 
     @PostMapping("/updateUser")

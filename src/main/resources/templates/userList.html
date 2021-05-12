@@ -5,13 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Выйти"/>
+</form>
+<a th:href="@{/admin}">Главная страница</a>
 <table>
     <thead>
     <tr>
         <th> ID </th>
         <th> Login </th>
-        <th> First name </th>
-        <th> Phone </th>
         <th> Active </th>
     </tr>
     </thead>
@@ -19,8 +21,6 @@
     <tr th:each="user : ${users}">
         <td><span th:text="${user.id}"> ID </span></td>
         <td><span th:text="${user.name}"> Login </span></td>
-        <td><span th:text="${user.realName}"> First name </span></td>
-        <td><span th:text="${user.phone}"> Phone </span></td>
         <td><span th:text="${user.active}"> Active </span></td>
     </tr>
     </tbody>
