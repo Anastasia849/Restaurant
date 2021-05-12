@@ -5,19 +5,30 @@
     <title>Menu</title>
 </head>
 <body>
-<a th:href="@{/user/userAccount}">Данные об аккаунте</a>
+<a th:href="@{/home/userAccount}">Данные об аккаунте</a>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Выйти"/>
 </form>
 
+<h4>Меню</h4>
 <div th:each="d: ${dishes}">
     <span th:text="${d.getName()}"></span>
     <span th:text="${d.getDescription()}"></span>
     <span th:text="${d.getPrice()}"></span>
-    <form th:method="delete" th:action="@{/students/{id} (id = ${s.getId()})}" style="display: inline" >
+    <form th:method="post" th:action="@{/home/addElementToOrder/{id} (id = ${d.getId()})}" style="display: inline" >
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+
+<h4>Корзина</h4>
+<div th:each="e: ${elements}">
+    <span th:text="${e.getName()}"></span>
+    <span th:text="${e.getPrice()}"></span>
+    <form th:method="delete" th:action="@{/home/deleteElementFromOrder/{id} (id = ${e.getId()})}" style="display: inline" >
         <button type="submit">Удалить</button>
     </form>
 </div>
+
 </body>
 </html>

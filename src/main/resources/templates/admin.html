@@ -10,11 +10,7 @@
     <input type="submit" value="Выйти"/>
 </form>
 
-<!--<div  th:each="prod: ${prods}">-->
-<!--    <form th:action="@{/checkClickedButton}" method="get">-->
-<!--        <input type="button" th:value="${prod}">-->
-<!--    </form>-->
-<!--</div>-->
+
 <h4>Меню</h4>
 <div th:each="d: ${dishes}">
     <span th:text="${d.getName()}"></span>

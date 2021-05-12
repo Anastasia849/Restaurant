@@ -2,13 +2,13 @@ package ru.mirea.konnova.restaurant.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.mirea.konnova.restaurant.model.Dish;
+import ru.mirea.konnova.restaurant.model.ElementOfOrder;
+import ru.mirea.konnova.restaurant.model.User;
 import ru.mirea.konnova.restaurant.service.OrderService;
 
 import java.util.List;
@@ -25,14 +25,23 @@ public class OrderController {
     }
 
     @GetMapping("")
-    public String getMenu(Model model){
+    public String getMenu(Model model,@AuthenticationPrincipal User user){
         List<Dish> dishes=orderService.getDishes();
         model.addAttribute("dishes", dishes);
+
+        List<ElementOfOrder> elements =orderService.getCart(user);
+        model.addAttribute("elements",elements);
         return "menu";
     }
-    @PostMapping("/addElementToOrder/{name}")
-    public void addElementToOrder(@PathVariable String name){
-        orderService.addElementToOrder(name);
+    @PostMapping("addElementToOrder/{id}")
+    public String addElementToOrder(@PathVariable int id, @AuthenticationPrincipal User user){
+        orderService.addElementToOrder(id,user);
+        return "redirect:/home";
     }
 
+    @DeleteMapping("deleteElementFromOrder/{id}")
+    public String deleteElementFromOrder(@PathVariable int id){
+        orderService.deleteElementFromOrder(id);
+        return "redirect:/home";
+    }
 }

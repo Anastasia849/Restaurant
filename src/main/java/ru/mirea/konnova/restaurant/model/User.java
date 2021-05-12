@@ -6,7 +6,7 @@ import lombok.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.mirea.konnova.restaurant.dto.OrderDTO;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -50,6 +50,10 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<ShoppingCart> shoppingCarts;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

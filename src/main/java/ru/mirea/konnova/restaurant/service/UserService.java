@@ -1,5 +1,6 @@
 package ru.mirea.konnova.restaurant.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -7,8 +8,11 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.mirea.konnova.restaurant.dao.ShoppingCartDAO;
 import ru.mirea.konnova.restaurant.dao.UserDAO;
 import ru.mirea.konnova.restaurant.model.Role;
+import ru.mirea.konnova.restaurant.model.ShoppingCart;
+import ru.mirea.konnova.restaurant.model.Status;
 import ru.mirea.konnova.restaurant.model.User;
 
 import javax.validation.Valid;
@@ -18,11 +22,14 @@ import java.util.List;
 @Service
 public class UserService {
     private final UserDAO userDAO;
+    private final ShoppingCartDAO shoppingCartDAO;
     private final BCryptPasswordEncoder encoder;
     private final UserDetailsService detailsService;
 
-    public UserService(UserDAO userDAO, BCryptPasswordEncoder encoder, UserDetailsService detailsService) {
+    @Autowired
+    public UserService(UserDAO userDAO, ShoppingCartDAO shoppingCartDAO, BCryptPasswordEncoder encoder, UserDetailsService detailsService) {
         this.userDAO = userDAO;
+        this.shoppingCartDAO = shoppingCartDAO;
         this.encoder = encoder;
         this.detailsService = detailsService;
     }
@@ -49,6 +56,11 @@ public class UserService {
         user.setActive(true);
         userDAO.save(user);
 
+        ShoppingCart shoppingCart=new ShoppingCart();
+        shoppingCart.setUser(user);
+        shoppingCart.setStatuses(Collections.singleton(Status.CART));
+        shoppingCartDAO.save(shoppingCart);
+
         return "redirect:/login";
     }
 
@@ -60,16 +72,12 @@ public class UserService {
         return userDAO.findByName(name);
     }
 
-    public boolean equalsPassword(String pas1, String pas2){
-        return encoder.matches(pas1, pas2);
-    }
+
 
     public String encode(String pass){
         return encoder.encode(pass);
     }
 
-    public boolean matches(String password, String currentPassword){
-        return encoder.matches(password, currentPassword);
-    }
+
 
 }

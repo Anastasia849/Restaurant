@@ -9,9 +9,9 @@ import javax.persistence.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "order_elements")
-@NoArgsConstructor
 public class ElementOfOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,14 +19,14 @@ public class ElementOfOrder {
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "code")
+    @Column(name = "price")
     private float price;
 
     @ManyToOne
-    private Order order;
+    ShoppingCart shoppingCart;
 
     public ElementOfOrder(Dish dish){
-        name=dish.getName();
-        price=dish.getPrice();
+        this.name=dish.getName();
+        this.price=dish.getPrice();
     }
 }
