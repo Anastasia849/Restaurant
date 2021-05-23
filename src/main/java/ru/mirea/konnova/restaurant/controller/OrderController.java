@@ -80,25 +80,4 @@ public class OrderController {
         return "confirmation";
     }
 
-
-//    @GetMapping("/userAccount")
-//    public String getUserAccDet(Model model, HttpServletRequest request){
-//        User currentUser = service.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
-//
-//        Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
-//
-//        if(map != null) {
-//            for (Map.Entry<String, ?> entry : map.entrySet()) {
-//                model.addAttribute(entry.getKey(), entry.getValue());
-//            }
-//        }
-//
-//        model.addAttribute("phone", currentUser.getPhone() == null ? "" : currentUser.getPhone());
-//        model.addAttribute("name", currentUser.getName() == null ? "" : currentUser.getName());
-//        model.addAttribute("address", currentUser.getAddress() == null ? "" : currentUser.getAddress());
-//        model.addAttribute("realName", currentUser.getRealName() == null ? "" : currentUser.getRealName());
-//
-//
-//        return "userAccountDetails";
-//    }
 }

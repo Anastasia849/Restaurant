@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 
+
 @Getter
 @Setter
 @Entity
@@ -17,7 +18,7 @@ public class ShoppingCart {
     @Column(name = "id")
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "shopping_cart_id")
     private Set<ElementOfOrder> elementOfOrderSet;
 

@@ -1,15 +1,12 @@
 package ru.mirea.konnova.restaurant.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.mirea.konnova.restaurant.model.Dish;
-import ru.mirea.konnova.restaurant.model.ShoppingCart;
-import ru.mirea.konnova.restaurant.model.User;
 import ru.mirea.konnova.restaurant.service.AdminService;
 import ru.mirea.konnova.restaurant.service.OrderService;
 
